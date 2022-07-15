@@ -10,7 +10,6 @@ accelerator:
   options:
     - name: title
       label: Title
-      display: true
       description: Title text for the application
       inputType: text
       dataType: string
@@ -18,7 +17,6 @@ accelerator:
 
     - name: gitUrl
       label: Git Repository URL
-      display: true
       description: Git Repository URL of the application's source code
       inputType: text
       dataType: string
@@ -26,7 +24,6 @@ accelerator:
 
     - name: gitBranch
       label: Git Repository Branch
-      display: true
       description: Git Repository Branch of the application's source code
       inputType: text
       dataType: string
