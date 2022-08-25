@@ -35,23 +35,23 @@ accelerator:
     - name: publisherRepository
       inputType: text
       label: Name of repository to use for the publisher container image
-      defaultValue: index.docker.io/springdeveloper/spring-sensors-publisher
+      defaultValue: harbor.h2o-37-1123.h2o.vmware.com/tap/sc/spring-sensors-explore
       description: The repository name to use for the publisher image built as part of this sample. Specify server/repository that match what was specified for registry.server and registry.repository for ootb-supply-chain-basic.
       required: true
     - name: repositoryPrefix
       inputType: text
       label: Prefix for the container image repository
-      defaultValue: dev.local
+      defaultValue: harbor.h2o-37-1123.h2o.vmware.com/tap/sc
       required: true
     - name: iterateClusterContext
       inputType: text
       label: Allowed Kubernetes context for iterative development
-      defaultValue: kind-cluster
+      defaultValue: tap-iterate
       required: true
     - name: developerNamespace
       inputType: text
       label: Developer namespace on Kubernetes cluster
-      defaultValue: default
+      defaultValue: dev
       required: true
 
 engine:
