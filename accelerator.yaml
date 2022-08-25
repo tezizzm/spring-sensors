@@ -10,6 +10,7 @@ accelerator:
   options:
     - name: title
       label: Title
+      display: true
       description: Title text for the application
       inputType: text
       dataType: string
@@ -17,6 +18,7 @@ accelerator:
 
     - name: gitUrl
       label: Git Repository URL
+      display: true
       description: Git Repository URL of the application's source code
       inputType: text
       dataType: string
@@ -24,6 +26,7 @@ accelerator:
 
     - name: gitBranch
       label: Git Repository Branch
+      display: true
       description: Git Repository Branch of the application's source code
       inputType: text
       dataType: string
@@ -35,11 +38,44 @@ accelerator:
       defaultValue: index.docker.io/springdeveloper/spring-sensors-publisher
       description: The repository name to use for the publisher image built as part of this sample. Specify server/repository that match what was specified for registry.server and registry.repository for ootb-supply-chain-basic.
       required: true
+    - name: repositoryPrefix
+      inputType: text
+      label: Prefix for the container image repository
+      defaultValue: dev.local
+      required: true
+    - name: iterateClusterContext
+      inputType: text
+      label: Allowed Kubernetes context for iterative development
+      defaultValue: kind-cluster
+      required: true
+    - name: developerNamespace
+      inputType: text
+      label: Developer namespace on Kubernetes cluster
+      defaultValue: default
+      required: true
 
 engine:
   merge:
     - include: [ "**" ]
       exclude: [ "tap/workload.yaml", "demo/**", "src/main/resources/application.yaml", "catalog/*.yaml" ]
+    - include: [ "Tiltfile" ]
+      chain:
+      - type: ReplaceText
+        substitutions:
+        - text: spring-sensors
+          with: "#artifactId"
+      - type: ReplaceText
+        substitutions:
+        - text: your-registry.io/project
+          with: "#repositoryPrefix"
+      - type: ReplaceText
+        substitutions:
+        - text: kind-cluster
+          with: "#iterateClusterContext"
+      - type: ReplaceText
+        substitutions:
+        - text: "'default'"
+          with: "'''' + #developerNamespace + ''''"
     - include: [ "tap/workload.yaml" ]
       chain:
         - type: ReplaceText
